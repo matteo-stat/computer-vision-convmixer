@@ -1,6 +1,7 @@
 from typing import Tuple
 import tensorflow as tf
 from typing import Tuple
+import random
 
 def train_val_split(images: tf.Tensor, labels: tf.Tensor, val_perc: float) -> Tuple[Tuple[tf.Tensor, tf.Tensor], Tuple[tf.Tensor, tf.Tensor]]:
     """
@@ -34,7 +35,7 @@ def train_val_split(images: tf.Tensor, labels: tf.Tensor, val_perc: float) -> Tu
 
 def data_augmentation(images_batch: tf.Tensor, labels_batch: tf.Tensor) -> Tuple[tf.Tensor, tf.Tensor]:
     """
-    apply random transformations to augment data
+    apply random transformations to augment images data
 
     Args:
         images_batch (tf.Tensor): batch of images data

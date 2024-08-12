@@ -3,19 +3,19 @@ import keras
 import datetime as dt
 from convmixerlib import blocks
 
-def build_convmixer(
+def build_convmixer_classifier(
         input_shape: Tuple[int, int, int],
         patches_embedding_dimension: int,
         depth: int,
         patch_size: int,
         kernel_size: int | Tuple[int, int],
         num_classes: int,
-        rescale_inputs: Optional[bool] = True,
-        dropout_rate: Optional[float] = None
+        rescale_inputs: Optional[bool] = True,        
+        dropout_rate: Optional[float] = None,
     ):
     """
     build a convmixer network as described in the original paper "patches are all you need"
-    additionally i added some optional dropout layers that should help a bit in case you are training from scratch with limited amount of data
+    i've added some optional dropout layers that could potentially help a bit in case you are training from scratch with a limited amount of data
 
     Args:
         input_shape (Tuple[int, int, int]): image input shape (width, height, channels)
@@ -24,7 +24,7 @@ def build_convmixer(
         patch_size (int): patch size used when breaking down input image in patches (described as "p" in the paper)
         kernel_size (int | Tuple[int, int]): kernel size of the depthwise convolution (described as "k" in the paper)
         num_classes (int): number of classes to classify images into
-        rescale_inputs (bool, optional): rescale the inputs between 0 and 1. Default to True.
+        rescale_inputs (bool, optional): optionally rescale the inputs between 0 and 1. Default to True.
         dropout_rate (bool, optional): dropout rate for optional dropouts layer, this is not part of the original paper implementation. Default to None. 
 
     Returns:

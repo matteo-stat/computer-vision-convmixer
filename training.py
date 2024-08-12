@@ -5,7 +5,6 @@ import convmixerlib as cm
 # some parameters
 NUM_CLASSES = 10
 BATCH_SIZE=64
-EPOCHS = 20
 SEED = 1993
 FULL_TRAINING = False
 
@@ -52,7 +51,7 @@ ds_test = (
 )
 
 # build convmixer model
-model = cm.models.build_convmixer(
+model = cm.models.build_convmixer_classifier(
     input_shape=(32, 32, 3),
     patches_embedding_dimension=256,
     depth=8,
@@ -62,6 +61,9 @@ model = cm.models.build_convmixer(
     rescale_inputs=True,
     dropout_rate=0.15
 )
+
+# model summary
+model.summary()
 
 # compile model
 model.compile(
@@ -74,15 +76,18 @@ model.compile(
 if not FULL_TRAINING:
     history = model.fit(
         ds_train,
-        epochs=1,
+        epochs=30,
         validation_data=ds_val,
     )
 # fit the model again but on the whole available data using the best hyperparameters previously found
 else:
     history = model.fit(
         ds_full,
-        epochs=20,
+        epochs=25,
     )
+
+# save training plot
+cm.plots.plot_training_history(show=False, output_path='output-plots')
 
 # predictions on test data
 predictions = []
@@ -93,4 +98,7 @@ predictions = tf.math.argmax(predictions, axis=-1)
 predictions = tf.cast(predictions, dtype=tf.uint8)
 predictions = tf.expand_dims(predictions, axis=1)
 
-# model.save('models/convmixer-cifar100.keras')
+# accuracy on test data
+accuracy = tf.cast(labels_test == predictions, dtype=tf.uint8)
+accuracy = accuracy.numpy().sum() / len(accuracy)
+print(f'test_categorical_accuracy: {accuracy:.4f}')
