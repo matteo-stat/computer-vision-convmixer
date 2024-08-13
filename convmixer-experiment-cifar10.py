@@ -4,32 +4,24 @@ import convmixerlib as cm
 
 # some parameters
 NUM_CLASSES = 10
-BATCH_SIZE=64
+BATCH_SIZE = 64
 SEED = 1993
-FULL_TRAINING = False
 
 # load cifar10 data
-(images, labels), (images_test, labels_test) = keras.datasets.cifar10.load_data()
+(images_train, labels_train), (images_test, labels_test) = keras.datasets.cifar10.load_data()
 
 # convert images data to float
-images = tf.cast(images, dtype=tf.float32)
+images_train = tf.cast(images_train, dtype=tf.float32)
 images_test = tf.cast(images_test, dtype=tf.float32)
 
 # convert labels to one hot encoding
-labels = tf.one_hot(labels, depth=NUM_CLASSES, dtype=tf.float32)
-labels = tf.reshape(labels, shape=(labels.shape[0], NUM_CLASSES))
+labels_train = tf.one_hot(labels_train, depth=NUM_CLASSES, dtype=tf.float32)
+labels_train = tf.reshape(labels_train, shape=(labels_train.shape[0], NUM_CLASSES))
 
 # split data in training and validation sets
-(images_train, labels_train), (images_val, labels_val) = cm.processing.train_val_split(images, labels, val_perc=0.1)
+(images_train, labels_train), (images_val, labels_val) = cm.processing.train_val_split(images_train, labels_train, val_perc=0.1)
 
 # data pipelines
-ds_full = (
-    tf.data.Dataset.from_tensor_slices((images, labels))
-    .shuffle(buffer_size=len(labels))
-    .batch(batch_size=BATCH_SIZE)
-    .map(cm.processing.data_augmentation, num_parallel_calls=tf.data.AUTOTUNE)
-    .prefetch(buffer_size=tf.data.AUTOTUNE)
-)
 ds_train = (
     tf.data.Dataset.from_tensor_slices((images_train, labels_train))
     .shuffle(buffer_size=len(labels_train))
@@ -50,14 +42,14 @@ ds_test = (
     .prefetch(buffer_size=tf.data.AUTOTUNE)
 )
 
-# build convmixer model
+# build convmixer model with dropouts layers
 model = cm.models.build_convmixer_classifier(
     input_shape=(32, 32, 3),
     patches_embedding_dimension=256,
     depth=8,
     patch_size=2,
     kernel_size=5,
-    num_classes=10,
+    num_classes=NUM_CLASSES,
     rescale_inputs=True,
     dropout_rate=0.15
 )
@@ -72,22 +64,26 @@ model.compile(
     metrics=[keras.metrics.CategoricalAccuracy()]
 )
 
-# fit the model first using validation set to assess model performances on test data
-if not FULL_TRAINING:
-    history = model.fit(
-        ds_train,
-        epochs=30,
-        validation_data=ds_val,
-    )
-# fit the model again but on the whole available data using the best hyperparameters previously found
-else:
-    history = model.fit(
-        ds_full,
-        epochs=25,
-    )
+# fit the model using validation set to assess model performances on test data
+history = model.fit(
+    ds_train,
+    epochs=50,
+    validation_data=ds_val,
+    verbose=1,
+    callbacks=[
+        keras.callbacks.EarlyStopping(
+            monitor='val_loss',
+            min_delta=0.01,
+            patience=5,
+            verbose=1,
+            restore_best_weights=True,
+            start_from_epoch=5,
+        )
+    ]
+)
 
 # save training plot
-cm.plots.plot_training_history(show=False, output_path='output-plots')
+cm.plots.plot_training_history(history.history, figsize=(10, 6), show=True)
 
 # predictions on test data
 predictions = []

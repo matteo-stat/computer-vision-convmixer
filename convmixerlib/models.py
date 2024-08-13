@@ -1,6 +1,5 @@
 from typing import Tuple,  Optional
 import keras
-import datetime as dt
 from convmixerlib import blocks
 
 def build_convmixer_classifier(

@@ -1,7 +1,6 @@
 from typing import Tuple
 import tensorflow as tf
 from typing import Tuple
-import random
 
 def train_val_split(images: tf.Tensor, labels: tf.Tensor, val_perc: float) -> Tuple[Tuple[tf.Tensor, tf.Tensor], Tuple[tf.Tensor, tf.Tensor]]:
     """
