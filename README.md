@@ -3,7 +3,7 @@ I believe that one of the most fascinating aspects of deep learning is the devel
 
 Some architectures appear simple, others complex, and some, let's say, simply original! These differences highlight the creative process often involved in developing network architectures for computer vision applications. Thanks to modern GPUs available in consumer computers, it's now quite feasible to design your own architecture, experiment with ideas, and start training from scratch.
 
-# ConvMixer Network - "Patches Are All You Need?"
+# "Patches Are All You Need?" - ConvMixer Network
 Recently, I came across the paper ["Patches are all you need?"](https://arxiv.org/abs/2201.09792) and found it to be quite original. In the past few years, transformer architectures have gained popularity in computer vision, often achieving excellent results but demanding more resources than traditional CNNs. This paper questions whether transformers are really anything special for vision tasks, proposing that their success might just come from the usual approach of breaking images into patches.
 
 The authors investigate this question by introducing a novel architecture called ConvMixer. In this approach, the input image is divided into patches using a standard convolution operation. This is followed by a series of blocks that incorporate pointwise convolutions, depthwise separable convolutions and residual connections.
