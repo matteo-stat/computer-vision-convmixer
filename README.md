@@ -1,5 +1,5 @@
 # Introduction
-I believe that one of the most fascinating aspects of deep learning is the development of network architectures for computer vision applications. Since 2012, many architectures have been proposed. While some building blocks have become standard, the overall structure of these networks often looks drastically different from one another.
+I believe that one of the most interesting aspects of deep learning is the design of network architectures for computer vision applications. Since 2012, many architectures have been proposed. While some building blocks have become standard, the overall structure of these networks often looks drastically different from one another.
 
 Some architectures appear simple, others complex, and some, let's say, simply original! These differences highlight the creative process often involved in developing network architectures for computer vision applications. Thanks to modern GPUs available in consumer computers, it's now quite feasible to design your own architecture, experiment with ideas, and start training from scratch.
 
