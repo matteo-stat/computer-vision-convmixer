@@ -19,4 +19,4 @@ Actually there is not much code at all, here's a short list of what you will fin
 - **plots.py** -> simple function for plotting models training history (train and validation loss)
 - **processing.py** -> functions for data augmentation and splitting data in training and validation sets
 
-You can use alternatively the notebook "convmixer-experiment-cifar10.ipynb" or the script "convmixer-experiment-cifar10.py" to run an experiment on cifar-10 data using a convmixer network!
+You can use alternatively the notebook "*convmixer-experiment-cifar10.ipynb*" or the script "*convmixer-experiment-cifar10.py*" to run an experiment on cifar-10 data using a convmixer network!
