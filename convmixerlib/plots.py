@@ -2,7 +2,7 @@ from matplotlib import pyplot as plt
 from typing import Tuple, Dict, Optional
 import datetime as dt
 
-def plot_training_history(history: Dict, figsize: Tuple[int, int], show: Optional[bool] = True, output_path: Optional[str] = None) -> None:
+def plot_training_history(history: Dict, figsize: Tuple[int, int], show: bool = True, output_path: Optional[str] = None) -> None:
     """
     save a plot showing training history loss
 
