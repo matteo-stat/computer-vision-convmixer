@@ -9,7 +9,7 @@ def build_convmixer_classifier(
         patch_size: int,
         kernel_size: int | Tuple[int, int],
         num_classes: int,
-        rescale_inputs: Optional[bool] = True,        
+        rescale_inputs: bool = True,        
         dropout_rate: Optional[float] = None,
     ):
     """
