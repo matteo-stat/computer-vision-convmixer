@@ -11,7 +11,7 @@ The authors investigate this question by introducing a novel architecture called
 One interesting thing about this approach is that it uses standard convolution to break down the image into patches, which is simpler (and more original) than what usual transformer methods propose. Also, the architecture is pretty simple and seems to performs well even with a limited number of trainable parameters. It's odd that there aren't any dropout layers, and we’ll explore that more later in the notebook.
 
 # Implementation from scratch
-You can have a look in the *convmixerlib* folder of this repository, which is a simple python custom module. All the code it's written using standard python type hints and docstrings, trying to keep things as simple as possible.
+You can have a look in the *convmixerlib* folder of this repository, which is a simple python custom module. All the code it's written using standard python type hints and docstrings, trying to keep things as simple as possible. Note that I intentionally minimized the number of functions to make the building blocks easier to understand and read (see note below).
 
 Actually there is not much code at all, here's a short list of what you will find in each file of the *convmixerlib* module:
 - **blocks.py** -> the convmixer basic building block
@@ -22,3 +22,5 @@ Actually there is not much code at all, here's a short list of what you will fin
 You can use alternatively the notebook "*convmixer-experiment-cifar10.ipynb*" or the script "*convmixer-experiment-cifar10.py*" to run an experiment on cifar-10 data using a convmixer network!
 
 You can install the required dependencies using the "*requirements.txt*" file (WARNING -> jupyter notebooks dependencies not included), everything should work as expected using python 3.12 or similar versions.
+
+**NOTE**: in this implementation i deliberately tried to use as few functions as possible. While it's useful to encapsulate repetetive basic building blocks (ex. convolution, batchnorm, activation) in functions, it quickly became a real nightmare when the only goal it's to understand a network design. When I look for network implementations and my goal is pure architectures understanding, I personally hate the functions inceptions when building simple stuff. Hope you will find easier to read the implementation in this way!
