@@ -21,6 +21,6 @@ Actually there is not much code at all, here's a short list of what you will fin
 
 You can use alternatively the notebook "*convmixer-experiment-cifar10.ipynb*" or the script "*convmixer-experiment-cifar10.py*" to run an experiment on cifar-10 data using a convmixer network!
 
-You can install the required dependencies using the "*requirements.txt*" file (WARNING -> jupyter notebooks dependencies not included), everything should work as expected using python 3.12 or similar versions.
+You can install the required dependencies using the "*requirements.txt*" file (WARNING -> jupyter notebooks dependencies not included), everything should work as expected using python 3.12 or similar versions. I tested everything on WSL2 with standard Ubuntu distribution.
 
 **NOTE**: in this implementation i deliberately tried to use as few functions as possible. While it's useful to encapsulate repetetive basic building blocks (ex. convolution, batchnorm, activation) in functions, it quickly became a real nightmare when the only goal it's to understand a network design. When I look for network implementations and my goal is pure architectures understanding, I personally hate the functions inceptions when building simple stuff. Hope you will find easier to read the implementation in this way!
