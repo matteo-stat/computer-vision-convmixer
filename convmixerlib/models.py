@@ -17,7 +17,7 @@ def build_convmixer_classifier(
     i've added some optional dropout layers that could potentially help a bit in case you are training from scratch with a limited amount of data
 
     Args:
-        input_shape (Tuple[int, int, int]): image input shape (width, height, channels)
+        input_shape (Tuple[int, int, int]): image input shape (height, width, channels)
         patches_embedding_dimension (int): hidden dimension, more specifically the size of patches embedding (described as "h" in the paper). This is also used as number of filter in the pointwise convolution of convmixer block.
         depth (int): depth of convmixer network, define the number of repetitions of convmixer block (described as "d" in the paper)
         patch_size (int): patch size used when breaking down input image in patches (described as "p" in the paper)
